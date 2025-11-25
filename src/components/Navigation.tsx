@@ -1,11 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useCart } from "@/contexts/CartContext";
 
 export default function Navigation() {
   const location = useLocation();
-  const [cartCount] = useState(0);
+  const { totalItems, openCart } = useCart();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -70,16 +70,19 @@ export default function Navigation() {
             </Link>
           </div>
 
-          <Link to="/cart" className="relative">
-            <Button variant="ghost" size="icon">
-              <ShoppingCart className="h-5 w-5 text-gray-600" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-            </Button>
-          </Link>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative"
+            onClick={openCart}
+          >
+            <ShoppingCart className="h-5 w-5 text-gray-600" />
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold">
+                {totalItems}
+              </span>
+            )}
+          </Button>
         </div>
       </div>
     </nav>

@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { ShoppingCart } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/useToast";
 
 const categories = [
   {
@@ -158,9 +160,20 @@ const products = {
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedCategory = searchParams.get("category") || null;
+  const { addToCart } = useCart();
+  const { toast } = useToast();
 
   const handleCategorySelect = (categoryId: string) => {
     setSearchParams({ category: categoryId });
+  };
+
+  const handleAddToCart = (product: any) => {
+    addToCart(product);
+    toast({
+      title: "Added to cart!",
+      description: `${product.name} has been added to your cart.`,
+      className: "bg-green-50 border-green-200",
+    });
   };
 
   return (
@@ -243,6 +256,7 @@ export default function Products() {
                         <Button
                           size="sm"
                           className="bg-green-600 hover:bg-green-700"
+                          onClick={() => handleAddToCart(product)}
                         >
                           <ShoppingCart className="h-4 w-4 mr-2" />
                           Add to Cart

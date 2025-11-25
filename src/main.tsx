@@ -5,6 +5,9 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./app.tsx";
 import "./styles/global.css";
+import { CartProvider } from "@/contexts/CartContext";
+import { Toaster } from "@/components/ui/toaster";
+import CartSidebar from "@/components/CartSidebar";
 
 const queryClient = new QueryClient();
 
@@ -13,7 +16,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
       <AutumnProvider betterAuthUrl={import.meta.env.VITE_BETTER_AUTH_URL}>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <CartProvider>
+            <App />
+            <CartSidebar />
+            <Toaster />
+          </CartProvider>
         </QueryClientProvider>
       </AutumnProvider>
     </ThemeProvider>
