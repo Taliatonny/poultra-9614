@@ -5,6 +5,10 @@ import BillingSuccess from "@/pages/billing-success";
 import Chat from "@/pages/chat";
 import Dashboard from "@/pages/dashboard";
 import Home from "@/pages/home";
+import Products from "@/pages/products";
+import Learn from "@/pages/learn";
+import About from "@/pages/about";
+import Contact from "@/pages/contact";
 import SignIn from "@/pages/sign-in";
 import SignUp from "@/pages/sign-up";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -14,6 +18,10 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/learn" element={<Learn />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
 
         {/* Authentication routes */}
         <Route path="/signin" element={<SignIn />} />
